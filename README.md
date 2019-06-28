@@ -185,7 +185,7 @@ WantedBy=multi-user.target
 $ sudo systemctl daemon-reload
 $ sudo systemctl start odoo12
 ```
-### Check the odoo service status
+### Check the odoo service status and enable service at start
 ```sh
 $ sudo systemctl status odoo12
 ```
@@ -193,4 +193,5 @@ $ sudo systemctl status odoo12
 ```sh
 $ sudo systemctl enable odoo12
 ```
+### Deployment
 26. Check out http://localhost:8069/ on your favorite browser.
