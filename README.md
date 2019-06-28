@@ -185,12 +185,12 @@ WantedBy=multi-user.target
 $ sudo systemctl daemon-reload
 $ sudo systemctl start odoo12
 ```
-25. Check the odoo service status:
+### Check the odoo service status
 ```sh
 $ sudo systemctl status odoo12
 ```
-26. If you wish to enable Odoo service to be automatically started at boot time:
+25. If you wish to enable Odoo service to be automatically started at boot time:
 ```sh
 $ sudo systemctl enable odoo12
 ```
-27. Check out http://localhost:8069/ on your favorite browser.
+26. Check out http://localhost:8069/ on your favorite browser.
