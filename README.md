@@ -198,3 +198,5 @@ $ sudo systemctl enable odoo12
 ```
 ### Deployment
 26. Check out http://localhost:8069/ on your favorite browser.
+
+![](/images/odoo-12.jpg)
