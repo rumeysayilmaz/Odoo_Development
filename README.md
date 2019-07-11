@@ -108,6 +108,9 @@ $ source odoo-venv/bin/activate
 (venv) $ pip3 install wheel
 (venv) $ pip3 install -r odoo/requirements.txt
 ```
+>
+>İf python3 version is higher than 3.7 then the PILLOW version inside odoo/requirements.txt need to be changed from 4.0.0 to the supported version. In my case it was 6.0.0. 
+>
 
 16. Deactivate the virtual environment:
 
