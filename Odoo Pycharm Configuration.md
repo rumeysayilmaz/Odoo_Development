@@ -25,7 +25,7 @@ Run the project on Pycharm. The following odoo start screen shall appear when yo
 >
 >**IMPORTANT**: This page asks for re-creation of a postgreSQL database for the odoo. If you don't wish to re-create a seperate database (use the database created during  odoo installation) then in that case you have to alter the owner of the database created earlier. For this, follow the instructions below:
 >
-Terminate pycharm pogram. From the Linux terminal, open the odoo12 configuration file:
+Terminate pycharm program. From the Linux terminal, open the odoo12 configuration file:
 ```sh
 $ sudo nano /etc/odoo12.conf
 ```
