@@ -16,7 +16,7 @@ Run Pycharm, from the view tab enable the toolbar.
 Add a configuration for the project as follows:
 ![](/images/pycharm_config.png)
 
-Create a user for the owner name of computer. In our case the name was administrator:
+Run the Project from Pycharm IDE environment. An error will appear on the screen saying that the username (owner name of the computer) doesn't exist hence for this purpose we need to create a user for the owner name of computer. In our case the name was administrator:
 ```sh
 sudo su - postgres -c "createuser -s administrator"
 ```
