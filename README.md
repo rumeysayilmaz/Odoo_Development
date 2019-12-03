@@ -158,6 +158,9 @@ addons_path = /opt/odoo12/odoo/addons,/opt/odoo12/odoo-custom-addons
 >Make sure to change the ```enter-your-password``` indicated above
 >
 
+>
+>Don't proceed with the following step if you are to run Odoo from Pycharm IDE!
+>
 ### Create a Systemd Unit File
 22. To run Odoo as a service, there is a need to create a service unit file in the ```/etc/systemd/system/``` directory. For this, open the text editor:
 
