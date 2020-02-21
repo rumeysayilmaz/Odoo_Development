@@ -1,8 +1,8 @@
-## Odoo Development Hints
+##Odoo Development Hints
 
 This document is for sharing important cases that were discovered during design and development phases.
 
-### Aliasing a Model for successful SQL Query made through the ORM layer
+###Aliasing a Model for successful SQL Query made through the ORM layer
 
 An issue has been opened [here](https://github.com/odoo/odoo/issues/45811) that describes the problem faced.
 
