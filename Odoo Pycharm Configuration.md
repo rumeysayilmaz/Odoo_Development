@@ -47,3 +47,5 @@ If you wish to enable Odoo service to be automatically started at boot time:
 $ sudo systemctl enable odoo12
 ```
 > Note that if you wish to run your odoo code developed in Pycharm, then the odoo12 service mentioned above needs to be disabled.  
+
+> **Important Notice:** For psycopg2-binary error, please remove the respective package from requirements.txt and then re-install requirement.txt to successfully install psycopg2.
