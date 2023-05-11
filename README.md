@@ -1,148 +1,162 @@
 ## Documentation for Setting up Odoo 
 
-This tutorial covers the steps needed for installing and configuring Odoo 12 Community version from Git source on a Python virtual environment on an _Ubuntu 18.04_ system. The steps for Odoo installation were utilized from [here](https://linuxize.com/post/how-to-deploy-odoo-12-on-ubuntu-18-04/) and [here](https://tecadmin.net/install-postgresql-server-on-ubuntu/) for PostgreSQL to create this instruction set.
+This tutorial covers the steps needed for installing and configuring Odoo 16 Community version from Git source on a Python virtual environment on an _Ubuntu 20.04_ system. 
 
 ### Updating the System to Latest Packages
 1. Open up the Linux terminal as a sudo user and execute the commands below in a step by step manner:
 
 ```sh
-$ sudo apt-get update
-$ sudo apt-get upgrade
+sudo apt-get update
+sudo apt-get upgrade
 ```
+### Install Python 3 and its Dependencies
+2. Install the required python packages for Odoo:
 
-### Installing Odoo Dependencies
-2. Install git, pip, [node.js](https://nodejs.org/) and tools required to build odoo dependencies:
+#### Install pip3:
 
 ```sh
-$ sudo apt install git python3-pip build-essential wget python3-dev python3-venv python3-wheel libxslt-dev libzip-dev libldap2-dev libsasl2-dev python3-setuptools node-less
+sudo apt-get install -y python3-pip
 ```
-
-### Creating a System User for Odoo
-3. Create a new system user named ```odoo12``` with a home directory ```/opt/odoo12``` by:
+#### Then install Packages and libraries:
 
 ```sh
-$ sudo useradd -m -d /opt/odoo12 -U -r -s /bin/bash odoo12
+sudo apt-get install python-dev python3-dev libxml2-dev libxslt1-dev zlib1g-dev libsasl2-dev libldap2-dev build-essential libssl-dev libffi-dev libmysqlclient-dev libjpeg-dev libpq-dev libjpeg8-dev liblcms2-dev libblas-dev libatlas-base-dev
+```
+
+#### web dependencies are also needed to be installed:
+
+
+```sh
+sudo apt-get install -y npm
+sudo ln -s /usr/bin/nodejs /usr/bin/node
+sudo npm install -g less less-plugin-clean-css
+sudo apt-get install -y node-less
+```
+
+### Installing Wkhtmlopdf tool
+
+3. Odoo supports printing reports as PDF files. Wkhtmltopdf helps to generate PDF reports from HTML data format. Moreover, the Qweb template reports are converted to HTML format by the report engine and Wkhtmltopdf will produce the PDF report:
+
+```sh
+sudo wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb
+sudo dpkg -i wkhtmltox_0.12.5-1.bionic_amd64.deb
+sudo apt install -f
 ```
 
 ### Enabling PostgreSQL Apt Repository, Installing and Configuring PostgreSQL 
 4. Enable PostgreSQL Apt Repository by importing the GPG key for PostgreSQL packages:
 
 ```sh
-$ sudo apt-get install wget ca-certificates 
-$ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+sudo apt-get install postgresql
 ```
 
-5. Add the repository to your system:
+Verify PostgreSQL installation by running the following command:
 
 ```sh
-$ sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
+sudo -u postgres psql -c "SELECT version();"
 ```
 
-6. Refresh the local package index and install the PostgreSQL server with PostgreSQL contribution package:
+5. Create a Database User Role for Handling Odoo Databases
+Next, a password for the distinctive user should be defined, which is needed later in the conf file:
 
 ```sh
-$ sudo apt update
-$ sudo apt install postgresql postgresql-contrib
+sudo su - postgres
+```
+Next, a password for the distinctive user should be defined, which is needed later in the conf file:
+```sh
+createuser --createdb --username postgres --no-createrole --no-superuser --pwprompt odoo16
+```
+The following command ensures that the user has superuser access rights:
+```sh
+psql
+ALTER USER odoo16 WITH SUPERUSER;
+```
+Exit from psql and Postgres user:
+```sh
+\q
+exit
+```
+### Installing git 
+6. To clone source code from git have to install git, follow the below commands:
+
+```sh
+sudo apt-get install git
 ```
 
-7. Verify PostgreSQL installation by running the following command:
+### Creating a System User for Odoo
+7. Create a new system user named ```odoo16``` with a home directory ```/opt/odoo16``` by:
 
 ```sh
-$ sudo -u postgres psql -c "SELECT version();"
-```
-
-8. Creating a PostgreSQL user for the ```odoo12``` user:
-
-```sh
-$ sudo su - postgres -c "createuser -s odoo12"
-```
-
->
->Make sure that the name of PostgreSQL username is same as the Odoo system user.
->
-
-
-### Installing Wkhtmlopdf tool
-
-9. Download the ```wkhtmlox``` package by employing wget command:
-
-```sh
-$ wget https://builds.wkhtmltopdf.org/0.12.1.3/wkhtmltox_0.12.1.3-1~bionic_amd64.deb
-```
-
-10. Install the ```wkhtmlox``` package:
-
-```sh
-$ sudo apt install ./wkhtmltox_0.12.1.3-1~bionic_amd64.deb
+sudo useradd -m -d /opt/odoo16 -U -r -s /bin/bash odoo16
 ```
 
 ### Installing and Configuring Odoo
-11. Switch to ```odoo12``` user:
+8. Switch to ```odoo16``` user:
 
 ```sh
-$ sudo su - odoo12
+sudo su - odoo16
 ```
 
-12. Clone Odoo 12 community version from Git source:
+9. Clone Odoo 16 community version from Git source:
 
 ```sh
-$ git clone https://www.github.com/odoo/odoo --depth 1 --branch 12.0 /opt/odoo12/odoo
+git clone https://www.github.com/odoo/odoo --depth 1 --branch 16.0 /opt/odoo16/odoo
 ```
 
-13. Creating a new Python Virtual Environment:
+10. Creating a new Python Virtual Environment:
 
 ```sh
-$ cd /opt/odoo12
-$ python3 -m venv odoo-venv
+cd /opt/odoo16
+python3 -m venv odoo16-venv
 ```
 
-14. Activate the virtual environment:
+11. Activate the virtual environment:
 
 ```sh
-$ source odoo-venv/bin/activate
+source odoo16-venv/bin/activate
 ```
 
-15. Install all of the required Python modules with pip3:
+12. Install all of the required Python modules with pip3:
 
 ```sh
-(venv) $ pip3 install wheel
-(venv) $ pip3 install -r odoo/requirements.txt
+pip3 install wheel
+pip3 install -r odoo/requirements.txt
 ```
 >
 >İf python3 version is higher than 3.7 then the PILLOW version inside odoo/requirements.txt need to be changed from 4.0.0 to the supported version. In my case it was 6.0.0. 
 >
 
-16. Deactivate the virtual environment:
+13. Deactivate the virtual environment:
 
 ```sh
-(venv) $ deactivate
+deactivate
 ```
 
-17. Create a new directory for custom addons:
+14. Create a new directory for custom addons:
 
 ```sh
-$ mkdir /opt/odoo12/odoo-custom-addons
+mkdir /opt/odoo16/odoo-custom-addons
 ```
 
-18. Switch back to sudo user:
+15. Switch back to sudo user:
 
 ```sh
-$ exit
+exit
 ```
 
-19. Create a configuration file:
+16. Create a configuration file:
 
 ```sh
-$ sudo cp /opt/odoo12/odoo/debian/odoo.conf /etc/odoo12.conf
+sudo cp /opt/odoo16/odoo/debian/odoo.conf /etc/odoo16.conf
 ```
 
-20. Open the configuration file:
+17. Open the configuration file:
 
 ```sh
-$ sudo nano /etc/odoo12.conf
+sudo nano /etc/odoo16.conf
 ```
 
-21. Edit the configuration file as:
+18. Edit the configuration file as:
 
 ```sh
 [options]
@@ -150,51 +164,15 @@ $ sudo nano /etc/odoo12.conf
 admin_passwd = enter-your-password
 db_host = False
 db_port = False
-db_user = odoo12
+db_user = odoo16
 db_password = False
-addons_path = /opt/odoo12/odoo/addons,/opt/odoo12/odoo-custom-addons
+addons_path = /opt/odoo16/odoo/addons,/opt/odoo16/odoo-custom-addons
 ```
 >
 >Make sure to change the ```enter-your-password``` indicated above
+>db_password change `Flase` to password you defined while creating postrgress user 
 >
 
-### Create a Systemd Unit File
-22. To run Odoo as a service, there is a need to create a service unit file in the ```/etc/systemd/system/``` directory. For this, open the text editor:
+### Launch Odoo
 
-```sh
-$ sudo nano /etc/systemd/system/odoo12.service
-```
-23. Paste the following to the editor:
-```sh
-[Unit]
-Description=Odoo12
-Requires=postgresql.service
-After=network.target postgresql.service
-
-[Service]
-Type=simple
-SyslogIdentifier=odoo12
-PermissionsStartOnly=true
-User=odoo12
-Group=odoo12
-ExecStart=/opt/odoo12/odoo-venv/bin/python3 /opt/odoo12/odoo/odoo-bin -c /etc/odoo12.conf
-StandardOutput=journal+console
-
-[Install]
-WantedBy=multi-user.target
-```
-24. Notify systemd that a new unit file exists and start the Odoo service by:
-```sh
-$ sudo systemctl daemon-reload
-$ sudo systemctl start odoo12
-```
-### Check the odoo service status and enable service at start
-```sh
-$ sudo systemctl status odoo12
-```
-25. If you wish to enable Odoo service to be automatically started at boot time:
-```sh
-$ sudo systemctl enable odoo12
-```
-### Deployment
-26. Check out http://localhost:8069/ on your favorite browser.
+19. Run Odoo as a [service](ServiceSetup.md) 
