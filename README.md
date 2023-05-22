@@ -38,9 +38,8 @@ sudo apt-get install -y node-less
 3. Odoo supports printing reports as PDF files. Wkhtmltopdf helps to generate PDF reports from HTML data format. Moreover, the Qweb template reports are converted to HTML format by the report engine and Wkhtmltopdf will produce the PDF report:
 
 ```sh
-sudo wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb
-sudo dpkg -i wkhtmltox_0.12.5-1.bionic_amd64.deb
-sudo apt install -f
+sudo wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.focal_amd64.deb
+sudo apt install -f ./wkhtmltox_0.12.6-1.focal_amd64.deb
 ```
 
 ### Enabling PostgreSQL Apt Repository, Installing and Configuring PostgreSQL 
@@ -50,18 +49,13 @@ sudo apt install -f
 sudo apt-get install postgresql
 ```
 
-Verify PostgreSQL installation by running the following command:
-
-```sh
-sudo -u postgres psql -c "SELECT version();"
-```
-
 5. Create a Database User Role for Handling Odoo Databases
 Next, a password for the distinctive user should be defined, which is needed later in the conf file:
 
 ```sh
 sudo su - postgres
 ```
+
 Next, a password for the distinctive user should be defined, which is needed later in the conf file:
 ```sh
 createuser --createdb --username postgres --no-createrole --no-superuser --pwprompt odoo16
@@ -161,7 +155,7 @@ sudo nano /etc/odoo16.conf
 ```sh
 [options]
 ; This is the password that allows database operations:
-admin_passwd = enter-your-password
+;admin_passwd = enter-your-password
 db_host = False
 db_port = False
 db_user = odoo16
@@ -175,4 +169,5 @@ addons_path = /opt/odoo16/odoo/addons,/opt/odoo16/odoo-custom-addons
 
 ### Launch Odoo
 
-19. Run Odoo as a [service](ServiceSetup.md) 
+19. Run Odoo as a [service](odooServiceSetup.md) 
+20. Run Odoo with development enviroment: [VSCODE](dev_env_vscode.md) [PYCHARM](dev_env_pycharm.md)

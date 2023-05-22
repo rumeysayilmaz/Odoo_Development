@@ -6,7 +6,7 @@ sudo nano /etc/systemd/system/odoo16.service
 ```
 
 2. Paste the following to the editor:
-
+```
 [Unit]
 Description=Odoo16
 Requires=postgresql.service
@@ -18,7 +18,7 @@ SyslogIdentifier=odoo16
 PermissionsStartOnly=true
 User=odoo16
 Group=odoo16
-ExecStart=/opt/odoo16/odoo-venv/bin/python3 /opt/odoo16/odoo/odoo-bin -c /etc/odoo16.conf
+ExecStart=/opt/odoo16/odoo16-venv/bin/python3 /opt/odoo16/odoo/odoo-bin -c /etc/odoo16.conf
 StandardOutput=journal+console
 
 [Install]
