@@ -22,6 +22,16 @@ sudo apt-get install -y python3-pip
 ```sh
 sudo apt-get install python-dev python3-dev libxml2-dev libxslt1-dev zlib1g-dev libsasl2-dev libldap2-dev build-essential libssl-dev libffi-dev libmysqlclient-dev libjpeg-dev libpq-dev libjpeg8-dev liblcms2-dev libblas-dev libatlas-base-dev
 ```
+When installing libpq-dev on Ubuntu 20.04, if one runs across an error; try installing the following specific version of libpq5:
+
+```sh
+sudo apt-get install libpq5=12.2-4
+```
+
+Then run the following command on the command line:
+```sh
+sudo apt install libpq-dev
+```
 
 #### web dependencies are also needed to be installed:
 
