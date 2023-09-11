@@ -1,4 +1,20 @@
+### Install Pycharm IDE
+1. Pycharm is available in 3 different Editions: Education, Community, and Enterprise. Here we are going to install the Pycharm Community edition and to run Pycharm you need certain minimum system requirements.
 
+Open Terminal (you can use Ctrl + Alt + T to open terminal) and execute the following commands:
+
+```sh
+sudo apt-get update 
+sudo apt-get upgrade
+sudo snap install pycharm-community --classic
+```
+or you can download from he following link [Download Pycharm](https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=linux&code=PCC)
+
+2. Giving permission for /opt/odoo16. previouly it created with user odoo so your user may not have authorizations
+
+```sh
+sudo chmod -R 777 /opt/odoo16/
+```
 
 change odoo.conf settings `/odoo/debian/odoo.conf`
 

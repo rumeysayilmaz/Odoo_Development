@@ -1,3 +1,9 @@
+### Install Visual Studio Code
+1. The following command can be used to accomplish this easily:
+
+```sh
+sudo snap install --classic code
+```
 
 
 

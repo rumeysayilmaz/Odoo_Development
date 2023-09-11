@@ -77,6 +77,13 @@ exit
 sudo apt-get install git
 ```
 
+Configure your [git](https://www.odoo.com/documentation/16.0/contributing/development/git_guidelines.html)
+
+```sh
+git config --global user.name "value"
+git config --global user.email "value"
+```
+
 ### Creating a System User for Odoo
 7. Create a new system user named ```odoo16``` with a home directory ```/opt/odoo16``` by:
 
@@ -116,9 +123,6 @@ source odoo16-venv/bin/activate
 pip3 install wheel
 pip3 install -r odoo/requirements.txt
 ```
->
->İf python3 version is higher than 3.7 then the PILLOW version inside odoo/requirements.txt need to be changed from 4.0.0 to the supported version. In my case it was 6.0.0. 
->
 
 13. Deactivate the virtual environment:
 
